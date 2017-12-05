@@ -81,7 +81,8 @@ const clone = program.clone || false
 // home => /Users/Administrator.PC-20161117IECM
 // tmp  => /Users/Administrator.PC-20161117IECM/.vue-templates/webpack 该路径下是模板文件
 const tmp = path.join(home, '.vue-templates', template.replace(/\//g, '-'))
-// 如果是线下，则template直接取这个路径，否则需要去线上仓库下载
+
+// 判断用户是否输入 offline 如果是线下，则template直接取这个路径，使用之前缓存的模板 否则需要去线上仓库下载
 if (program.offline) {
   console.log(`> Use cached template at ${chalk.yellow(tildify(tmp))}`)
   template = tmp
@@ -117,7 +118,7 @@ if (exists(to)) {
  */
 
 function run () {
-  // check if template is local
+  // check if template is local 检查模板是否是本地下载
   if (isLocalPath(template)) {
     const templatePath = getTemplatePath(template)
     if (exists(templatePath)) {

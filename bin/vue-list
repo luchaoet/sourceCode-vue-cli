@@ -16,7 +16,7 @@ process.on('exit', () => {
 /**
  * List repos.
  */
-
+// vue list 命令用于查看官方提供的模板列表
 request({
   url: 'https://api.github.com/users/vuejs-templates/repos',
   headers: {
