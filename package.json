@@ -31,9 +31,11 @@
   "dependencies": {
     "async": "^2.4.0",
     "chalk": "^2.1.0",
+    "coffee-script": "1.12.7",
     "commander": "^2.9.0",
     "consolidate": "^0.14.0",
     "download-git-repo": "^1.0.1",
+    "git-clone": "^0.1.0",
     "handlebars": "^4.0.5",
     "inquirer": "^3.3.0",
     "metalsmith": "^2.1.0",
@@ -47,8 +49,7 @@
     "tildify": "^1.2.0",
     "uid": "0.0.2",
     "user-home": "^2.0.0",
-    "validate-npm-package-name": "^3.0.0",
-    "coffee-script": "1.12.7"
+    "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",

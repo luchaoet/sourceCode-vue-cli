@@ -1,13 +1,21 @@
 #!/usr/bin/env node
-
+// 从仓库提取git存储库
 const download = require('download-git-repo')
+// 主要用于创建子命令 切割命令行参数并执行
 const program = require('commander')
+// 检查文件是否存在
 const exists = require('fs').existsSync
+// 路径模块 处理文件和目录路径 如路径切割 文件路径格式化 json格式化
 const path = require('path')
+// 漂亮的loading
 const ora = require('ora')
+// 获取用户主目录的路径
 const home = require('user-home')
+// 绝对路径转化为相对路径
 const tildify = require('tildify')
+// 美化
 const chalk = require('chalk')
+// 常用的交互式命令行用户界面的集合 表现是控制台输出的提问
 const inquirer = require('inquirer')
 const rm = require('rimraf').sync
 const logger = require('../lib/logger')
@@ -56,16 +64,24 @@ help()
 /**
  * Settings.
  */
-
+// vue init的第一个参数
 let template = program.args[0]
 const hasSlash = template.indexOf('/') > -1
+
+// vue init的第二个参数
 const rawName = program.args[1]
 const inPlace = !rawName || rawName === '.'
+// process.cwd()返回nodejs进程当前工作的目录
 const name = inPlace ? path.relative('../', process.cwd()) : rawName
 const to = path.resolve(rawName || '.')
 const clone = program.clone || false
 
+// path.join() 方法使用平台特定的分隔符把全部给定的 path 片段连接到一起，并规范化生成的路径
+
+// home => /Users/Administrator.PC-20161117IECM
+// tmp  => /Users/Administrator.PC-20161117IECM/.vue-templates/webpack 该路径下是模板文件
 const tmp = path.join(home, '.vue-templates', template.replace(/\//g, '-'))
+// 如果是线下，则template直接取这个路径，否则需要去线上仓库下载
 if (program.offline) {
   console.log(`> Use cached template at ${chalk.yellow(tildify(tmp))}`)
   template = tmp
