@@ -38,3 +38,7 @@ request({
     console.error(requestBody.message)
   }
 })
+
+/*
+  当输入 vue build 时 vue-cli 会请求接口 获取官方模板的信息 然后做一些处理 在终端上显示模板名称和对应的说明
+*/
