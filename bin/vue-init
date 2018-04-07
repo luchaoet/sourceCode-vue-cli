@@ -71,29 +71,37 @@ program.on('--help', () => {
 
 function help () {
   program.parse(process.argv)
+  // 如果没有输入参数 终端显示帮助
   if (program.args.length < 1) return program.help()
 }
 help()
 
 /**
  * Settings.
+ * 定义了一堆变量
  */
-// vue init的第一个参数
+// vue init的第一个参数 模板名称
 let template = program.args[0]
-const hasSlash = template.indexOf('/') > -1
+// 是否有斜杆 后面将会用来判断是否为官方文档
+const hasSlash = template.indexOf('/') > -1 
 
-// vue init的第二个参数
+// vue init的第二个参数 项目构建目录名称
 const rawName = program.args[1]
+// 没写 或者 是. 表示当前目录下构建项目
 const inPlace = !rawName || rawName === '.'
 // process.cwd()返回nodejs进程当前工作的目录
+// 如果在当前目录下构建项目 当前目录名为项目构建目录名 否则是当前目录下的子目录 rawName 为项目构建目录名
 const name = inPlace ? path.relative('../', process.cwd()) : rawName
+// 项目构建目录的绝对路径
 const to = path.resolve(rawName || '.')
+// 是否采用clone 模式 提供 download-git-repo 的参数
 const clone = program.clone || false
 
 // path.join() 方法使用平台特定的分隔符把全部给定的 path 片段连接到一起，并规范化生成的路径
 
 // home => /Users/Administrator.PC-20161117IECM
 // tmp  => /Users/Administrator.PC-20161117IECM/.vue-templates/webpack 该路径下是模板文件
+// 远程模板下载到本地
 const tmp = path.join(home, '.vue-templates', template.replace(/\//g, '-'))
 
 // 判断用户是否输入 offline 如果是线下，则template直接取这个路径，使用之前缓存的模板 否则需要去线上仓库下载
