@@ -1,4 +1,13 @@
 #!/usr/bin/env node
+/*
+  vue init 是用来构建项目命令 也是vue-cli的核心文件
+
+  1.vue-cli 会先判断你的模板在远程github仓库上还是在你的本地的某个文件里 
+    如果是本地文件夹 则会直接读取本地模板 反之则会将模板存到本地
+  
+  
+*/
+
 // 从仓库提取git存储库
 const download = require('download-git-repo')
 // 主要用于创建子命令 切割命令行参数并执行
