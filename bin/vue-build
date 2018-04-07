@@ -9,3 +9,7 @@ console.log(chalk.yellow(
   '  Check out Poi (https://github.com/egoist/poi) which offers the same functionality!' +
   '\n'
 ))
+
+/*
+  chalk 用于高亮终端打印出来的信息
+*/

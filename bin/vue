@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+// commander 用于处理命令行
 require('commander')
   .version(require('../package').version)
   .usage('<command> [options]')
@@ -8,6 +8,8 @@ require('commander')
   .command('build', 'prototype a new project')
   .parse(process.argv)
 
+// 这个文件只要是在用户输入 vue 时 终端显示参数的使用说明
+// 具体可见 https://github.com/tj/commander.js
 
 // process对象提供一系列属性，用于返回系统信息。
 
