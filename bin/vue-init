@@ -178,7 +178,9 @@ if (exists(to)) {
 function run () {
   // check if template is local 检查模板是否是本地下载
   if (isLocalPath(template)) {
+    // 获取绝对路径
     const templatePath = getTemplatePath(template)
+    // 判断模板所在路径是否存在
     if (exists(templatePath)) {
       generate(name, templatePath, to, err => {
         if (err) logger.fatal(err)
@@ -186,25 +188,33 @@ function run () {
         logger.success('Generated "%s".', name)
       })
     } else {
+      //打印错误日志，提示本地模板不存在
       logger.fatal('Local template "%s" not found.', template)
     }
   } else {
+    // 检查版本号
     checkVersion(() => {
+      // 官方模板还是第三方模板
       if (!hasSlash) {
         // use official templates
         const officialTemplate = 'vuejs-templates/' + template
+        // 模板名是否带#
         if (template.indexOf('#') !== -1) {
+          // 下载模板
           downloadAndGenerate(officialTemplate)
         } else {
           if (template.indexOf('-2.0') !== -1) {
+            // 警告
             warnings.v2SuffixTemplatesDeprecated(template, inPlace ? '' : name)
             return
           }
 
           // warnings.v2BranchIsNowDefault(template, inPlace ? '' : name)
+          // 下载模板
           downloadAndGenerate(officialTemplate)
         }
       } else {
+        // 下载模板
         downloadAndGenerate(template)
       }
     })
@@ -219,12 +229,19 @@ function run () {
 
 function downloadAndGenerate (template) {
   const spinner = ora('downloading template')
+  // 显示加载状态
   spinner.start()
   // Remove if local template exists
+  // 当前模板库是否存在模板 存在就删除
   if (exists(tmp)) rm(tmp)
+  // 下载模板
+  // template模板名 tmp模板路径 clone是否采用git clone模板 err错误短信
   download(template, tmp, { clone }, err => {
+    // 隐藏加载状态
     spinner.stop()
+    // 有错误 打印错误
     if (err) logger.fatal('Failed to download repo ' + template + ': ' + err.message.trim())
+    // 渲染模板
     generate(name, tmp, to, err => {
       if (err) logger.fatal(err)
       console.log()
