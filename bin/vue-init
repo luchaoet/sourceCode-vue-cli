@@ -119,6 +119,24 @@ process.on('exit', () => {
   console.log()
 })
 
+/**
+ * vue-cli 会判断 exists(to) true则会询问开发者 当回答yes的时候执行run() 否则直接执行run() 
+ * 询问两个问题
+ * Generate project in current directory? //是否在当前目录下构建项目
+ * Target directory exists. Continue? //构建目录已存在,是否继续
+ * 
+ * 这两个问题依靠变量inPlace来选择，下面我看一下变量inPlace是怎么得来的
+ * const rawName = program.args[1]  //rawName为命令行的第二个参数（项目构建目录的相对目录）
+ * const inPlace = !rawName || rawName === '.'  //rawName存在或者为“.”的时候，视为在当前目录下构建
+ * 
+ * 通过上面的描述可知 变量inPlace 用于判断是否在当前文件夹下构建 因此变量inPlace为true时 则会提示
+ * Generate project in current directory?
+ * 反之为false时 此时exists(to)一定为true 便提示 Target directory exists. Continue?
+ * 
+ * 
+ * run函数逻辑
+ * 
+ */
 if (exists(to)) {
   inquirer.prompt([{
     type: 'confirm',
